@@ -7,7 +7,7 @@ namespace Klev\CryptoPayApi\Methods;
  *
  * @see https://telegra.ph/Crypto-Pay-API-11-25#getInvoices
  */
-class GetInvoices
+class GetInvoices extends BaseMethod
 {
     /**
      * Optional. Currency codes separated by comma. Supported assets: “BTC”, “TON”, “ETH” (testnet only), “USDT”,

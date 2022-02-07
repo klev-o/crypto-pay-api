@@ -98,8 +98,7 @@ class CryptoPay
      */
     public function createInvoice(CreateInvoice $createInvoice): Invoice
     {
-        var_dump((array)$createInvoice);
-        $out = $this->request('createInvoice', ['query' => (array)$createInvoice]);
+        $out = $this->request('createInvoice', ['query' => $createInvoice->toArray()]);
         return new Invoice($out['result']);
     }
 
@@ -116,7 +115,7 @@ class CryptoPay
      */
     public function transfer(MethodTransfer $transfer): TypeTransfer
     {
-        $out = $this->request('transfer', ['query' => (array)$transfer]);
+        $out = $this->request('transfer', ['query' => $transfer->toArray()]);
         return new TypeTransfer($out['result']);
     }
 
@@ -130,7 +129,7 @@ class CryptoPay
      */
     public function getInvoices(?GetInvoices $getInvoices = null): array
     {
-        $params = $getInvoices ? (array)$getInvoices : [];
+        $params = $getInvoices ? $getInvoices->toArray() : [];
         $out = $this->request('getInvoices', ['query' => $params]);
 
         if (!isset($out['result']['items'])) {

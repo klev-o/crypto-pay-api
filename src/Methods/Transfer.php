@@ -7,7 +7,7 @@ namespace Klev\CryptoPayApi\Methods;
  *
  * @see https://telegra.ph/Crypto-Pay-API-11-25#transfer
  */
-class Transfer
+class Transfer extends BaseMethod
 {
     /**
      * Telegram user ID. User must have previously used @CryptoBot (@CryptoTestnetBot for testnet).
@@ -42,7 +42,7 @@ class Transfer
      * Optional. Pass true if the user should not receive a notification about the transfer. Default is false.
      * @var bool|null
      */
-    public ?bool $disable_send_notification;
+    public bool $disable_send_notification = false;
 
     public function __construct(int $user_id, string $asset, string $amount, string $spend_id)
     {

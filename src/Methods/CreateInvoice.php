@@ -7,7 +7,7 @@ namespace Klev\CryptoPayApi\Methods;
  *
  * @see https://telegra.ph/Crypto-Pay-API-11-25#createInvoice
  */
-class CreateInvoice
+class CreateInvoice extends BaseMethod
 {
     /**
      * Currency code. Supported assets: “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC” and “BUSD”.
