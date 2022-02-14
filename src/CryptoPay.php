@@ -10,7 +10,6 @@ use Klev\CryptoPayApi\Methods\Transfer as MethodTransfer;
 use Klev\CryptoPayApi\Types\Transfer as TypeTransfer;
 use Klev\CryptoPayApi\Types\Invoice;
 use Klev\CryptoPayApi\Types\Update;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 
 /**
@@ -55,15 +54,15 @@ class CryptoPay
      */
     private ClientInterface $apiClient;
     /**
-     * List listeners for webhook events
+     * Array of listeners for webhook updates
      * @var array
      */
     private array $listeners = [];
     /**
-     * DI
-     * @var ContainerInterface|null
+     * Enable events, disabled by default
+     * @var bool
      */
-    private ?ContainerInterface $container = null;
+    private bool $enableEvents = false;
 
     public function __construct(string $token, ?bool $isTestnet = false)
     {
@@ -184,24 +183,15 @@ class CryptoPay
     }
 
     /**
+     * Attach an event handler
+     *
      * @param string $paidType
-     * @param mixed $callback
+     * @param callable $callback
      * @return void
-     * @throws CryptoPayException
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function on(string $paidType, $callback)
+    public function on(string $paidType, callable $callback)
     {
-        if ($callback instanceof \Closure) {
-            $this->listeners[$paidType][] = $callback;
-        } else {
-            if (!$this->container) {
-                throw new CryptoPayException('For use in events of something other than anonymous functions, 
-                set the container using the setContainer method');
-            }
-            $this->listeners[$paidType][] = $this->container->get($callback);
-        }
+        $this->listeners[$paidType][] = $callback;
     }
 
     /**
@@ -214,15 +204,17 @@ class CryptoPay
      * @return void
      * @throws CryptoPayException
      */
-    public function getWebhookUpdates(bool $throwVerifyError = true): void
+    public function getWebhookUpdates(bool $throwVerifyError = true):? Update
     {
+        $updates = null;
         if ($this->getWebhookUpdatesRaw() && $this->verifyWebhookUpdates($throwVerifyError)) {
             $data = json_decode($this->getWebhookUpdatesRaw(), true);
             $updates = $data ? new Update($data) : null;
-            if ($updates) {
-                $this->trigger($updates->update_type, $updates);
+            if ($updates && $this->isEnableEvents()) {
+                $this->trigger($updates);
             }
         }
+        return $updates;
     }
 
 
@@ -240,13 +232,19 @@ class CryptoPay
     }
 
     /**
-     * Set Container
-     * @param ContainerInterface|null $container
-     * @return void
+     * @return bool
      */
-    public function setContainer(?ContainerInterface $container): void
+    public function isEnableEvents(): bool
     {
-        $this->container = $container;
+        return $this->enableEvents;
+    }
+
+    /**
+     * @param bool $enableEvents
+     */
+    public function setEnableEvents(bool $enableEvents): void
+    {
+        $this->enableEvents = $enableEvents;
     }
 
     /**
@@ -261,16 +259,15 @@ class CryptoPay
     }
 
     /**
-     * Triggering listeners by name
-     * @param $name
+     * Triggering listeners by update_type
      * @param Update $update
      * @return void
      */
-    private function trigger($name, Update $update)
+    private function trigger(Update $update)
     {
-        if (isset($this->listeners[$name])) {
-            foreach ($this->listeners[$name] as $listener) {
-                $listener($update, $this->container);
+        if (isset($this->listeners[$update->update_type])) {
+            foreach ($this->listeners[$update->update_type] as $listener) {
+                $listener($update);
             }
         }
     }
@@ -290,7 +287,6 @@ class CryptoPay
                    'Crypto-Pay-API-Token' => $this->token
                ]
             ]);
-            //var_dump($uri . http_build_query($params['query']));
 
             $response = $this->apiClient->get($uri, $params);
 

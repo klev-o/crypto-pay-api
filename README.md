@@ -1,4 +1,4 @@
-<img alt="CryptoPayApi" src="images/crypto.png"/>
+<img alt="CryptoPayApi" src="images/crypto.jpg"/>
 
 # klev-o/crypto-pay-api
 
@@ -10,14 +10,18 @@ Simple and convenient implementation Crypto Pay API with php version ^7.4 suppor
 ![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/klev-o/crypto-pay-api)
 ![GitHub last commit](https://img.shields.io/github/last-commit/klev-o/crypto-pay-api)
 
-## Installation
+## 📖 Intro
+
+Fully object-oriented and simple code. All available types and methods are described using classes with documentation of all fields.  For each class, the url to the documentation is indicated, where you can study the nuances, etc.
+
+## 🛠 Installation
 
 Run this command in your command line:
 ```php
 composer require klev-o/crypto-pay-api
 ```
 
-## Usage
+## 🔌Usage
 
 ### Common
 
@@ -51,8 +55,7 @@ Then you can call all possible methods. To check that everything is working corr
 
 require_once '../vendor/autoload.php';
 
-//the second parameter true - activates the testnet
-$api = new \Klev\CryptoPayApi\CryptoPay('YOUR_APP_TOKEN', true);
+$api = new \Klev\CryptoPayApi\CryptoPay('YOUR_APP_TOKEN');
 
 $result = $api->getMe();
 
@@ -126,6 +129,7 @@ $log = new Logger('App');
 $log->pushHandler(new StreamHandler('../var/logs/app.log'));
 
 $api = new CryptoPay('YOUR_APP_TOKEN');
+$api->setEnableEvents(true);
 
 //subscribe to an event
 $api->on(PaidType::INVOICE_PAID, static function(Update $update) use ($log) {
@@ -138,9 +142,13 @@ $api->getWebhookUpdates();
 
 You can register multiple handlers for the same event.
 
-###Advanced
+> You can also just get the result from the `$api->getWebhookUpdates()` method without subscribing to events
 
-If you are going to use api in some more or less large project, in a firework, etc., then it is possible to register a dependency injection container in the api object, and through it you can do any things that you may need. Let's take an example:
+> By default, events are disabled. To enable them, you need to use the method `$api->setEnableEvents(true);`
+
+## 📟Advanced
+
+Also, as an event handler, you can use anything that corresponds to the callable type. Let's take an example:
 
 > Let's say we have installed `composer require php-di/php-di`, although you can use any other psr-compatible
 
@@ -168,14 +176,11 @@ $builder->addDefinitions([
         return $log;
     },
     //specify the rules on how to create an object
-    InvoicePaidListener::class => function(\DI\Container $c) use ($log) {
+    InvoicePaidListener::class => function(\DI\Container $c) {
         return new InvoicePaidListener($c->get(LoggerInterface::class));
     }
 ]);
 $container = $builder->build();
-
-//register container in api
-$api->setContainer($container);
 
 //Instead of using an anonymous function, we can now use a custom class, into which,
 //if necessary, we can pull everything we need (working with the database, sending by mail, etc.)
@@ -189,19 +194,32 @@ class InvoicePaidListener
     }
     public function __invoke(Update $update)
     {
-        $this->log->info(PaidType::INVOICE_PAID . 'event from class: ', (array)$update);
+        $this->log->info('payload', (array)$update);
     }
 
 }
 
 //Now the event subscription looks more concise
-$api->on(PaidType::INVOICE_PAID, InvoicePaidListener::class);
+$api->on(PaidType::INVOICE_PAID, $container->get(InvoicePaidListener::class));
 
 $api->getWebhookUpdates();
 ```
 
 You can use your dependency injection container to pipe all the necessary functionality from your code into handlers
 
-## Troubleshooting
+## 🎁Dontations
+
+Support the project if you like it. Funds will go towards food.
+
+| Network                     | Currency          | Wallet                                                                                                                             |
+|-----------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Bitcoin                     | `BTC`             | `1M1qhSE6sN34a4d7ZtCh6y17Vf3LtdoW62`<br/>or<br/>`14cvXywCMucKMhFYDCbmQ1ZHhayDgbD65R`                                               |
+| The Open Network            | `TON`             | `EQAYZK8rWrS9Fhojdc486BpplDmTSLHum440f-L2--SA2Oid` <br/> or<br/> `ton://transfer/UQBVsumSIvsq4PfeFMhxSV9m_zPB31cHJX4X2lAVh9BUJXm3` |
+| Binance Smart Chain – BEP20 | `BNB, BUSD, USDT` | `0x674B09Ab418bb41C075847bde004bb7F492c2121`                                                                                       |
+
+## 🧨Troubleshooting
 
 Please, if you find any errors or not exactly - report this [problem page](https://github.com/klev-o/crypto-pay-api/issues)
+
+## And finally...
+Happy botting 🤖
