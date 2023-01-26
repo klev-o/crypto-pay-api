@@ -25,7 +25,7 @@ class Invoice extends BaseType
      */
     public string $hash;
     /**
-     * Currency code. Currently, can be “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC” or “BUSD”.
+     * Currency code. Currently, can be “BTC”, “TON”, “ETH”, “USDT”, “USDC” or “BUSD”.
      * @var string
      */
     public string $asset;
@@ -34,6 +34,11 @@ class Invoice extends BaseType
      * @var string
      */
     public string $amount;
+    /**
+     * Optional. Amount of charged service fees. Returned only if the invoice has paid status
+     * @var string|null
+     */
+    public ?string $fee = null;
     /**
      * URL should be presented to the user to pay the invoice.
      * @var string
@@ -71,9 +76,9 @@ class Invoice extends BaseType
     public ?string $paid_at = null;
     /**
      * True, if the invoice was paid anonymously.
-     * @var bool|null
+     * @var bool
      */
-    public ?bool $paid_anonymously = null;
+    public bool $paid_anonymously;
     /**
      * Optional. Comment to the payment from the user.
      * @var string|null
