@@ -20,7 +20,7 @@ class Transfer extends BaseType
      */
     public string $user_id;
     /**
-     * Currency code. Currently, can be “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC” or “BUSD”.
+     * Currency code. Currently, can be “BTC”, “TON”, “ETH”, “USDT”, “USDC” or “BUSD”.
      * @var string
      */
     public string $asset;
