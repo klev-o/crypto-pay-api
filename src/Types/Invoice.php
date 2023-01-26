@@ -55,6 +55,11 @@ class Invoice extends BaseType
      */
     public string $created_at;
     /**
+     * Optional. Price of the asset in USD. Returned only if the invoice has paid status.
+     * @var string|null
+     */
+    public ?string $usd_rate  = null;
+    /**
      * True, if the user can add comment to the payment.
      * @var bool|null
      */
