@@ -296,9 +296,8 @@ class CryptoPay
             if (isset($out['ok']) && $out['ok'] === true && isset($out['result'])) {
                 return $out;
             }
-            throw new \Exception('Unexpected response: ' . $body);
-        } catch (GuzzleException $e) {
-            throw new CryptoPayException('GuzzleException: ' . $e->getMessage());
+
+            throw new CryptoPayException('Unexpected response: ' . $body);
         } catch (\Exception $e) {
             throw new CryptoPayException($e->getMessage());
         }
