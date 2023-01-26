@@ -18,7 +18,7 @@ use Psr\Http\Client\ClientInterface;
  * Crypto Pay is a payment system based on @CryptoBot that allows you to accept  payments in crypto and transfer coins
  * to users using our API.
  *
- * @see https://telegra.ph/Crypto-Pay-API-11-25
+ * @link https://help.crypt.bot/crypto-pay-api
  */
 class CryptoPay
 {
@@ -75,7 +75,7 @@ class CryptoPay
      * Use this method to test your app's authentication token. Requires no parameters. On success, returns basic
      * information about an app.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#getMe
+     * @link https://help.crypt.bot/crypto-pay-api#getMe
      *
      * @return array
      * @throws CryptoPayException
@@ -89,7 +89,7 @@ class CryptoPay
     /**
      * Use this method to create a new invoice. On success, returns an object of the created invoice.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#createInvoice
+     * @link https://help.crypt.bot/crypto-pay-api#createInvoice
      *
      * @param CreateInvoice $createInvoice
      * @return Invoice
@@ -106,7 +106,7 @@ class CryptoPay
      * completed transfer.
      *
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#transfer
+     * @link https://help.crypt.bot/crypto-pay-api#transfer
      *
      * @param MethodTransfer $transfer
      * @return TypeTransfer
@@ -121,7 +121,7 @@ class CryptoPay
     /**
      * Use this method to get invoices of your app. On success, returns array of invoices.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#getInvoices
+     * @link https://help.crypt.bot/crypto-pay-api#getInvoices
      *
      * @return Invoice[]
      * @throws CryptoPayException
@@ -143,7 +143,7 @@ class CryptoPay
     /**
      * Use this method to get a balance of your app. Returns array of assets.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#getBalance
+     * @link https://help.crypt.bot/crypto-pay-api#getBalance
      *
      * @return array
      * @throws CryptoPayException
@@ -157,7 +157,7 @@ class CryptoPay
     /**
      * Use this method to get exchange rates of supported currencies. Returns array of currencies.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#getExchangeRates
+     * @link https://help.crypt.bot/crypto-pay-api#getExchangeRates
      *
      * @return array
      * @throws CryptoPayException
@@ -171,7 +171,7 @@ class CryptoPay
     /**
      * Use this method to get a list of supported currencies. Returns array of currencies.
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#getCurrencies
+     * @link https://help.crypt.bot/crypto-pay-api#getCurrencies
      *
      * @return array
      * @throws CryptoPayException
@@ -197,7 +197,7 @@ class CryptoPay
     /**
      * Getting webhook updates
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#Webhooks
+     * @link https://help.crypt.bot/crypto-pay-api#webhook-updates
      *
      * @param bool $throwVerifyError - Throw an exception if the webhook fails verification. The default is set to true.
      * If set to false, the exception will not be thrown, it will simply return false
@@ -307,7 +307,7 @@ class CryptoPay
     /**
      * Webhook verification
      *
-     * @see https://telegra.ph/Crypto-Pay-API-11-25#Verifying-webhook-updates
+     * @link https://help.crypt.bot/crypto-pay-api#verifying-webhook-updates
      *
      * @param bool $throwVerifyError - Throw an exception if the webhook fails verification. The default is set to true.
      * If set to false, the exception will not be thrown, it will simply return false

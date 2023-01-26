@@ -2,7 +2,7 @@
 
 # klev-o/crypto-pay-api
 
-Simple and convenient implementation Crypto Pay API with php version ^7.4 support. Based on the [Official Crypto Pay Api](https://telegra.ph/Crypto-Pay-API-11-25)
+Simple and convenient implementation Crypto Pay API with php version ^7.4 support. Based on the [Official Crypto Pay Api](https://help.crypt.bot/crypto-pay-api)
 
 [![License](https://img.shields.io/github/license/klev-o/crypto-pay-api)](https://github.com/klev-o/crypto-pay-api/blob/main/LICENSE)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/klev-o/crypto-pay-api)

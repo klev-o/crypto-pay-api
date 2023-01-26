@@ -5,7 +5,7 @@ namespace Klev\CryptoPayApi\Methods;
 /**
  * class CreateInvoice
  *
- * @see https://telegra.ph/Crypto-Pay-API-11-25#createInvoice
+ * @link https://help.crypt.bot/crypto-pay-api#createInvoice
  */
 class CreateInvoice extends BaseMethod
 {

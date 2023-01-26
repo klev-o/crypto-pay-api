@@ -5,7 +5,7 @@ namespace Klev\CryptoPayApi\Methods;
 /**
  * class Transfer
  *
- * @see https://telegra.ph/Crypto-Pay-API-11-25#transfer
+ * @link https://help.crypt.bot/crypto-pay-api#transfer
  */
 class Transfer extends BaseMethod
 {

@@ -5,7 +5,7 @@ namespace Klev\CryptoPayApi\Types;
 /**
  * class Transfer
  *
- * @see https://telegra.ph/Crypto-Pay-API-11-25#Transfer
+ * @link https://help.crypt.bot/crypto-pay-api#Transfer
  */
 class Transfer extends BaseType
 {

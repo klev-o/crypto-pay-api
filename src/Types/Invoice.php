@@ -5,7 +5,7 @@ namespace Klev\CryptoPayApi\Types;
 /**
  * class Invoice
  *
- * @see https://telegra.ph/Crypto-Pay-API-11-25#Invoice
+ * @link https://help.crypt.bot/crypto-pay-api#Invoice
  */
 class Invoice extends BaseType
 {
