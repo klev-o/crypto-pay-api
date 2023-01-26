@@ -10,7 +10,7 @@ namespace Klev\CryptoPayApi\Methods;
 class CreateInvoice extends BaseMethod
 {
     /**
-     * Currency code. Supported assets: “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC” and “BUSD”.
+     * Currency code. Supported assets: “BTC”, “TON”, “ETH”, “USDT”, “USDC” and “BUSD”.
      * @var string
      */
     public string $asset;
