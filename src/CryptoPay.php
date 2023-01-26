@@ -101,9 +101,10 @@ class CryptoPay
     }
 
     /**
-     * Use this method to send coins from your app's balance to a user. On success, returns object of
-     * completed transfer.
-     *
+     * Use this method to send coins from your app's balance to a user. On success, returns object of completed
+     * transfer. First, you need to enable this method in the security settings of your app.
+     * Open @CryptoBot (@CryptoTestnetBot for testnet), go to Crypto Pay → My Apps, choose an app, then go to
+     * Security -> Transfers... and tap Enable.
      *
      * @link https://help.crypt.bot/crypto-pay-api#transfer
      *

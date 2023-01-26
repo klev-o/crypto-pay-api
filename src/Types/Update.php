@@ -26,10 +26,10 @@ class Update extends BaseType
      */
     public string $request_date;
     /**
-     * Payload of the update.
-     * @var object|null
+     * Payload contains Invoice object.
+     * @var Invoice|null
      */
-    public ?object $payload = null;
+    public ?Invoice $payload = null;
 
     /**
      * @param $key
