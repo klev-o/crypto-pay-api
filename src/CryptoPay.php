@@ -3,7 +3,6 @@
 namespace Klev\CryptoPayApi;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Klev\CryptoPayApi\Methods\CreateInvoice;
 use Klev\CryptoPayApi\Methods\GetInvoices;
 use Klev\CryptoPayApi\Methods\Transfer as MethodTransfer;
@@ -64,11 +63,11 @@ class CryptoPay
      */
     private bool $enableEvents = false;
 
-    public function __construct(string $token, ?bool $isTestnet = false)
+    public function __construct(string $token, ?bool $isTestnet = false, ?CryptoPayHttpClientInterface $client = null)
     {
         $this->token = $token;
         $this->isTestnet = $isTestnet;
-        $this->apiClient = new Client();
+        $this->apiClient = $client ?? new Client();
     }
 
     /**
