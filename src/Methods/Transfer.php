@@ -10,24 +10,24 @@ namespace Klev\CryptoPayApi\Methods;
 class Transfer extends BaseMethod
 {
     /**
-     * Telegram user ID. User must have previously used @CryptoBot (@CryptoTestnetBot for testnet).
+     * Telegram user ID. The user must have previously interacted with @CryptoBot (@CryptoTestnetBot for testnet).
      * @var int
      */
     public int $user_id;
     /**
-     * Currency code. Supported assets: “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC” and “BUSD”.
+     * Cryptocurrency code. Supported assets: “BTC”, “TON”, “ETH” (testnet only), “USDT”, “USDC”.
      * @var string
      */
     public string $asset;
     /**
-     * Amount of the transfer in float. For example: 125.50
+     * Amount of the transfer in float format. For example: 125.50
      * @var string
      */
     public string $amount;
     /**
      * Unique ID to make your request idempotent and ensure that only one of the transfers with the same spend_id will
-     * be accepted by Crypto Pay API. This parameter is useful when the transfer should be retried (i.e. request
-     * timeout, connection reset, 500 HTTP status, etc). It can be some unique withdrawal identifier for example.
+     * be accepted by the Crypto Pay API. This parameter is useful when the transfer needs to be retried (e.g., request
+     * timeout, connection reset, 500 HTTP status, etc). It can be some unique withdrawal identifier, for example.
      * Up to 64 symbols.
      * @var string
      */
@@ -39,11 +39,19 @@ class Transfer extends BaseMethod
      */
     public ?string $comment = null;
     /**
-     * Optional. Pass true if the user should not receive a notification about the transfer. Default is false.
+     * Optional. Pass true to prevent sending a notification about the transfer to the user. Default is false.
      * @var bool|null
      */
-    public bool $disable_send_notification = false;
+    public ?bool $disable_send_notification = false;
 
+    /**
+     * Constructs a Transfer instance.
+     *
+     * @param int $user_id User's Telegram ID.
+     * @param string $asset Cryptocurrency code.
+     * @param string $amount Transfer amount as a string.
+     * @param string $spend_id Idempotent ID to uniquely identify the transfer.
+     */
     public function __construct(int $user_id, string $asset, string $amount, string $spend_id)
     {
         $this->user_id = $user_id;

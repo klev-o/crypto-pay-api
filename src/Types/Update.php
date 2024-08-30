@@ -15,23 +15,24 @@ class Update extends BaseType
      */
     public int $update_id;
     /**
-     * Webhook update type. Supported update types:
-     * invoice_paid – the update sent after an invoice is paid.
+     * Webhook update type.
+     * Supported update types:
+     * invoice_paid – the update sent when the invoice is paid.
      * @var string
      */
-    public string $update_type = '';
+    public string $update_type;
     /**
      * Date the request was sent in ISO 8601 format.
      * @var string
      */
     public string $request_date;
     /**
-     * Payload contains Invoice object.
+     * Payload containing an Invoice object.
      * @var Invoice|null
      */
     public ?Invoice $payload = null;
-
     /**
+     * Bind data to the Invoice object.
      * @param $key
      * @param $data
      * @return Invoice|null
@@ -41,8 +42,8 @@ class Update extends BaseType
         switch ($key) {
             case 'payload':
                 return new Invoice($data);
+            default:
+                return parent::bindObjects($key, $data);
         }
-
-        return parent::bindObjects($key, $data);
     }
 }
