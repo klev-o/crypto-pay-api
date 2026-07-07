@@ -15,98 +15,50 @@ class Invoice extends BaseType
      */
     public int $invoice_id;
     /**
+     * Status of the invoice, can be either “active”, “paid” or “expired”.
+     * @var string
+     */
+    public string $status;
+    /**
      * Hash of the invoice.
      * @var string
      */
     public string $hash;
     /**
-     * Type of the price, can be “crypto” or “fiat”.
+     * Currency code. Currently, can be “BTC”, “TON”, “ETH”, “USDT”, “USDC” or “BUSD”.
      * @var string
      */
-    public string $currency_type;
+    public string $asset;
     /**
-     * Optional. Cryptocurrency code.
-     * Currently, can be “USDT”, “TON”, “BTC”, “ETH”, “LTC”, “BNB”, “TRX” and “USDC” (and “JET” for testnet).
-     * @var string|null
-     */
-    public ?string $asset = null;
-    /**
-     * Optional. Fiat currency code.
-     * Currently one of “USD”, “EUR”, “RUB”, “BYN”, “UAH”, “GBP”, “CNY”, “KZT”, “UZS”, “GEL”, “TRY”, 
-     * “AMD”, “THB”, “INR”, “BRL”, “IDR”, “AZN”, “AED”, “PLN” and “ILS".
-     * @var string|null
-     */
-    public ?string $fiat = null;
-    /**
-     * Amount of the invoice for which the invoice was created.
+     * Amount of the invoice.
      * @var string
      */
     public string $amount;
     /**
-     * Optional. Cryptocurrency alphabetic code for which the invoice was paid.
+     * Optional. Amount of charged service fees. Returned only if the invoice has paid status
      * @var string|null
      */
-    public ?string $paid_asset = null;
+    public ?string $fee = null;
     /**
-     * Optional. Amount of the invoice for which the invoice was paid.
-     * @var string|null
+     * URL should be presented to the user to pay the invoice.
+     * @var string
      */
-    public ?string $paid_amount = null;
-    /**
-     * Optional. The rate of the paid_asset valued in the fiat currency.
-     * @var string|null
-     */
-    public ?string $paid_fiat_rate = null;
-    /**
-     * Optional. List of assets which can be used to pay the invoice.
-     * @var array|null
-     */
-    public ?array $accepted_assets = null;
-    /**
-     * Optional. Asset of service fees charged when the invoice was paid.
-     * @var string|null
-     */
-    public ?string $fee_asset = null;
-    /**
-     * Optional. Amount of service fees charged when the invoice was paid.
-     * @var int|null
-     */
-    public ?int $fee_amount = null;
-    /**
-     * URL should be provided to the user to pay the invoice. Deprecated.
-     * @var string|null
-     */
-    public ?string $pay_url = null;
-    /**
-     * URL should be provided to the user to pay the invoice.
-     * @var string 
-     */
-    public string $bot_invoice_url;
+    public string $pay_url;
     /**
      * Optional. Description for this invoice.
      * @var String|null
      */
     public ?String $description = null;
     /**
-     * Status of the transfer, can be “active”, “paid” or “expired”.
-     * @var string
-     */
-    public string $status;
-    /**
      * Date the invoice was created in ISO 8601 format.
      * @var string
      */
     public string $created_at;
     /**
-     * Optional. Price of the asset in USD. Deprecated.
+     * Optional. Price of the asset in USD. Returned only if the invoice has paid status.
      * @var string|null
      */
     public ?string $usd_rate  = null;
-    /**
-     * Optional. Price of the asset in USD.
-     * @var string|null
-     */
-    public ?string $paid_usd_rate = null;
     /**
      * True, if the user can add comment to the payment.
      * @var bool|null
@@ -117,14 +69,13 @@ class Invoice extends BaseType
      * @var bool|null
      */
     public ?bool $allow_anonymous = null;
-
     /**
-     * Optional. Date the invoice expires in ISO 8601 format.
+     * Optional. Date the invoice expires in Unix time.
      * @var string|null
      */
     public ?string $expiration_date = null;
     /**
-     * Optional. Date the invoice was paid in ISO 8601 format.
+     * Optional. Date the invoice was paid in Unix time.
      * @var string|null
      */
     public ?string $paid_at = null;
@@ -149,12 +100,12 @@ class Invoice extends BaseType
      */
     public ?string $payload = null;
     /**
-     * Optional. Label of the button, can be “viewItem”, “openChannel”, “openBot” or “callback”.
+     * Optional. Name of the button, can be “viewItem”, “openChannel”, “openChannel” or “callback”.
      * @var string|null
      */
     public ?string $paid_btn_name = null;
     /**
-     * Optional. URL opened using the button.
+     * Optional. URL of the button.
      * @var string|null
      */
     public ?string $paid_btn_url = null;

@@ -10,20 +10,10 @@ namespace Klev\CryptoPayApi\Methods;
 class CreateInvoice extends BaseMethod
 {
     /**
-     * Currency type, can be either "crypto" or "fiat".
+     * Currency code. Supported assets: “BTC”, “TON”, “ETH”, “USDT”, “USDC” and “BUSD”.
      * @var string
      */
-    public string $currency_type;
-    /**
-     * Cryptocurrency code. Supported assets: “USDT”, “TON”, “BTC”, “ETH”, “LTC”, “BNB”, “TRX” and “USDC”.
-     * @var string|null
-     */
-    public ?string $asset = null;
-    /**
-     * Fiat currency code. Supported fiat currencies: “USD”, “EUR”, “RUB”, “BYN”, “UAH”, “GBP”, “CNY”, “KZT”, “UZS”, “GEL”, “TRY”, “AMD”, “THB”, “INR”, “BRL”, “IDR”, “AZN”, “AED”, “PLN” and “ILS".
-     * @var string|null
-     */
-    public ?string $fiat = null;
+    public string $asset;
     /**
      * Amount of the invoice in float. For example: 125.50
      * @var string
@@ -36,7 +26,7 @@ class CreateInvoice extends BaseMethod
      */
     public ?string $description = null;
     /**
-     * Optional. Text of the message that will be shown to a user after the invoice is paid. Up to 2048 characters.
+     * Optional. Text of the message that will be shown to a user after the invoice is paid. Up to 2o48 characters.
      * @var string|null
      */
     public ?string $hidden_message = null;
@@ -56,7 +46,7 @@ class CreateInvoice extends BaseMethod
      */
     public ?string $paid_btn_url = null;
     /**
-     * Optional. Any data you want to attach to the invoice (for example, user ID, payment ID, etc). Up to 4kb.
+     * Optional. Any data you want to attach to the invoice (for example, user ID, payment ID, ect). Up to 4kb.
      * @var string|null
      */
     public ?string $payload = null;
@@ -76,17 +66,9 @@ class CreateInvoice extends BaseMethod
      */
     public ?int $expires_in;
 
-    public function __construct(string $asset, string $amount, string $currency_type = 'crypto')
+    public function __construct(string $asset, string $amount)
     {
+        $this->asset = $asset;
         $this->amount = $amount;
-        $this->currency_type = $currency_type;
-
-        if ($currency_type === 'crypto') {
-            $this->asset = $asset;
-        }
-
-        if ($currency_type === 'fiat') {
-            $this->fiat = $asset;
-        }
     }
 }
